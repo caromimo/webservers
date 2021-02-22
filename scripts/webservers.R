@@ -30,7 +30,7 @@ data_to_plot <- data %>%
                                    language == "Go" ~ "memory safe"))
 
 # plot the data
-data_to_plot %>% 
+data_to_plot <- data_to_plot %>% 
   group_by(server) %>%
   summarise(
     total = sum(number_of_vulnerabilities)
@@ -40,12 +40,25 @@ data_to_plot %>%
                               server == "express" ~ "JS (memory safe)",
                               server == "traefik" ~ "Go (memory safe)",
                               server == "caddy" ~ "Go (memory safe)",
-                              server == "nginx" ~ "C (memory unsafe)")) %>%
+                              server == "nginx" ~ "C (memory unsafe)")) 
+
+data_to_plot %>%
   ggplot(aes(total, server, fill = language)) +
   geom_col() +
   theme_light() +
+  scale_y_discrete(breaks=c("apache_httpd", "nginx", "traefik", "express", "caddy"),
+                   labels=c("Apache httpd", "Nginx", "Traefik", "Express", "Caddy")) +
   labs(
     title = "Vulnerabilities in servers between 2015 and 2020",
     x = "Total number of vulnerabilities", 
     y = "Web server name"
-  )
+  ) + 
+  theme(
+    plot.title = element_text(size=18, hjust = 0.5, vjust = 0),
+    axis.title.x = element_text(size=16, face="bold"),
+    axis.title.y = element_text(size=16, face="bold"),
+    axis.text.x = element_text(size=12),
+    axis.text.y = element_text(size=12),
+    legend.title = element_text(size = 14),
+    legend.text = element_text(size = 12)
+    )
