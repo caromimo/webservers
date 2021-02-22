@@ -54,9 +54,9 @@ data_to_plot %>%
     y = "Web server name"
   ) + 
   theme(
-    plot.title = element_text(size=18, hjust = 0.5, vjust = 0),
-    axis.title.x = element_text(size=16, face="bold"),
-    axis.title.y = element_text(size=16, face="bold"),
+    plot.title = element_text(size=18, face="bold", margin=margin(20,0,20,0), hjust = 0.5, vjust = 0),
+    axis.title.x = element_text(size=16, margin=margin(10,0,10,0)),
+    axis.title.y = element_text(size=16, margin=margin(0,10,0,10)),
     axis.text.x = element_text(size=12),
     axis.text.y = element_text(size=12),
     legend.title = element_text(size = 14),
